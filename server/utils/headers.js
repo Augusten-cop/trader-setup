@@ -31,8 +31,7 @@ async function getSystemInfo() {
 
 async function getHeaders(additionalHeaders = {}) {
     const systemInfo = await getSystemInfo();
-    
-    return {
+    const headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'X-UserType': 'USER',
@@ -43,8 +42,14 @@ async function getHeaders(additionalHeaders = {}) {
         'X-PrivateKey': process.env.SMARTAPI_PRIVATE_KEY || 'kODguWBV',
         ...additionalHeaders
     };
+
+    // Log headers but mask sensitive values
+    const masked = { ...headers };
+    if (masked['X-PrivateKey']) masked['X-PrivateKey'] = '***masked***';
+    console.log('Headers generated:', masked);
+
+    return headers;
 }
-console.log('Headers generated:', X-clientLocalIP, X-ClientPublicIP, X-MACAddress);
 module.exports = {
     getHeaders
 };
