@@ -44,7 +44,8 @@ async function getHeaders(additionalHeaders = {}) {
         ...additionalHeaders
     };
 }
-console.log('Headers generated:', await getHeaders());
+console.log('Headers generated:', getHeaders());
 module.exports = {
     getHeaders
 };
+
