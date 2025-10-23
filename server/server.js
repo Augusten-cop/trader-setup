@@ -118,16 +118,6 @@ function requireTriggerAuth(req, res) {
 }
 
 // Manual Trigger Endpoints
-app.post('/api/trigger/connect', async (req, res) => {
-    try {
-        console.log('Manual trigger: Running connect.js update');
-        await updateSmartAPIData();
-        res.json({ success: true, message: 'Connect.js update completed successfully' });
-    } catch (error) {
-        console.error('Connect.js update failed:', error);
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
 
 app.get('/api/trigger/connect', async (req, res) => {
     if (!requireTriggerAuth(req, res)) return;
@@ -301,50 +291,3 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-app.get('/api/trigger/candles', async (req, res) => {
-    if (!requireTriggerAuth(req, res)) return;
-    try {
-        console.log('Manual GET trigger: Running candle.js');
-        await fetchCandles();
-        res.json({ success: true, message: 'Candle.js execution completed successfully' });
-    } catch (error) {
-        console.error('Candle.js execution failed:', error);
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
-
-app.get('/api/trigger/pricefilter', async (req, res) => {
-    if (!requireTriggerAuth(req, res)) return;
-    try {
-        console.log('Manual GET trigger: Running priceFilter.js');
-        await filterPrices();
-        res.json({ success: true, message: 'PriceFilter.js execution completed successfully' });
-    } catch (error) {
-        console.error('PriceFilter.js execution failed:', error);
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
-
-app.get('/api/trigger/onehour', async (req, res) => {
-    if (!requireTriggerAuth(req, res)) return;
-    try {
-        console.log('Manual GET trigger: Running onehourFetch.js');
-        await fetchOneHourData();
-        res.json({ success: true, message: 'OneHourFetch.js execution completed successfully' });
-    } catch (error) {
-        console.error('OneHourFetch.js execution failed:', error);
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
-
-app.get('/api/trigger/strategy', async (req, res) => {
-    if (!requireTriggerAuth(req, res)) return;
-    try {
-        console.log('Manual GET trigger: Running stratagy.js');
-        await executeStrategy();
-        res.json({ success: true, message: 'Strategy.js execution completed successfully' });
-    } catch (error) {
-        console.error('Strategy.js execution failed:', error);
-        res.status(500).json({ success: false, error: error.message });
-    }
-});
