@@ -43,10 +43,21 @@ async function getHeaders(additionalHeaders = {}) {
         ...additionalHeaders
     };
 
-    // Log headers but mask sensitive values
-    const masked = { ...headers };
-    if (masked['X-PrivateKey']) masked['X-PrivateKey'] = '***masked***';
-    console.log('Headers generated:', masked);
+    // Log masked headers for debugging
+    try {
+        const masked = { ...headers };
+        if (masked['X-PrivateKey']) masked['X-PrivateKey'] = '***masked***';
+        console.log('Headers generated:', masked);
+    } catch (e) {
+        console.warn('Failed to log headers:', e && e.message);
+    }
+
+    // Also log raw system info values for debugging
+    try {
+        console.log('ClientLocalIP:', systemInfo.localIP, 'ClientPublicIP:', systemInfo.publicIP, 'MAC:', systemInfo.macAddress);
+    } catch (e) {
+        console.warn('Failed to log systemInfo:', e && e.message);
+    }
 
     return headers;
 }
