@@ -44,8 +44,7 @@ async function getHeaders(additionalHeaders = {}) {
         ...additionalHeaders
     };
 }
-console.log('Headers generated:', getHeaders());
+console.log('Headers generated:', X-clientLocalIP, X-ClientPublicIP, X-MACAddress);
 module.exports = {
     getHeaders
 };
-
