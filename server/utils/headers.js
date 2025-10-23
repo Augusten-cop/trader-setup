@@ -42,25 +42,9 @@ async function getHeaders(additionalHeaders = {}) {
         'X-PrivateKey': process.env.SMARTAPI_PRIVATE_KEY || 'kODguWBV',
         ...additionalHeaders
     };
-
-    // Log masked headers for debugging
-    try {
-        const masked = { ...headers };
-        if (masked['X-PrivateKey']) masked['X-PrivateKey'] = '***masked***';
-        console.log('Headers generated:', masked);
-    } catch (e) {
-        console.warn('Failed to log headers:', e && e.message);
-    }
-
-    // Also log raw system info values for debugging
-    try {
-        console.log('ClientLocalIP:', systemInfo.localIP, 'ClientPublicIP:', systemInfo.publicIP, 'MAC:', systemInfo.macAddress);
-    } catch (e) {
-        console.warn('Failed to log systemInfo:', e && e.message);
-    }
-
     return headers;
 }
 module.exports = {
     getHeaders
 };
+
